@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magical Garden for Mahi 🌸</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #FDEDEC;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Comic Sans MS', sans-serif;
+            position: relative;
+        }
+
+        /* Container for all elements */
+        .garden {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 10%;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #6D597A;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .message {
+            font-size: 1.5em;
+            color: #FFB6B9;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        .flower, .butterfly, .star {
+            position: absolute;
+            cursor: pointer;
+            animation: float 6s ease-in-out infinite;
+            transition: transform 0.2s ease;
+        }
+
+        .flower:hover, .butterfly:hover, .star:hover {
+            transform: scale(1.2);
+        }
+
+        .flower {
+            width: 80px;
+            height: 80px;
+            background-image: url('https://i.imgur.com/kX4BS64.png');
+            background-size: cover;
+        }
+
+        .butterfly {
+            width: 60px;
+            height: 60px;
+            background-image: url('https://i.imgur.com/fxO6cq4.png');
+            background-size: cover;
+            animation: flutter 4s infinite;
+        }
+
+        .star {
+            width: 50px;
+            height: 50px;
+            background-image: url('https://i.imgur.com/zOXUK5A.png');
+            background-size: cover;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes flutter {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(15deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        /* Fireflies */
+        .firefly {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: yellow;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0% { opacity: 0.8; }
+            50% { opacity: 0.4; }
+            100% { opacity: 0.8; }
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="garden">
+        <div class="container">
+            <h1>Mahi, You're in a Magical Garden 🌸</h1>
+            <p>Click on flowers, butterflies, and stars for happy surprises!</p>
+            <div class="message" id="message"></div>
+        </div>
+
+        <!-- Interactive Elements -->
+        <div class="flower" style="top: 50%; left: 20%;" onclick="showMessage('flower')"></div>
+        <div class="flower" style="top: 70%; left: 50%;" onclick="showMessage('flower')"></div>
+        <div class="butterfly" style="top: 40%; left: 75%;" onclick="showMessage('butterfly')"></div>
+        <div class="star" style="top: 20%; left: 60%;" onclick="showMessage('star')"></div>
+
+        <!-- Fireflies floating around -->
+        <div class="firefly" style="top: 20%; left: 10%; animation-duration: 3s;"></div>
+        <div class="firefly" style="top: 50%; left: 80%; animation-duration: 5s;"></div>
+        <div class="firefly" style="top: 70%; left: 30%; animation-duration: 4s;"></div>
+    </div>
+
+    <audio id="popSound">
+        <source src="https://www.soundjay.com/button/beep-07.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const messageElement = document.getElementById('message');
+        const messages = {
+            flower: [
+                "You're blooming beautifully, Mahi! 🌸",
+                "Keep growing, you're amazing! 🌼",
+                "Flowers bloom where Mahi smiles! 😄"
+            ],
+            butterfly: [
+                "You bring joy wherever you go! 🦋",
+                "Fly high, just like this butterfly! 🌈",
+                "You're graceful and strong, Mahi! 🌟"
+            ],
+            star: [
+                "You're a shining star, Mahi! ✨",
+                "You're lighting up the world! 🌟",
+                "Twinkle twinkle, you're a star! ⭐"
+            ]
+        };
+
+        function showMessage(type) {
+            const randomMsg = messages[type][Math.floor(Math.random() * messages[type].length)];
+            messageElement.textContent = randomMsg;
+            messageElement.classList.add('visible');
+            setTimeout(() => messageElement.classList.remove('visible'), 3000);
+
+            // Play sound
+            document.getElementById('popSound').play();
+        }
+    </script>
+
+</body>
+</html>
